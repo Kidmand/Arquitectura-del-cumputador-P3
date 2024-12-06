@@ -1,0 +1,35 @@
+
+archivo.elf:     formato del fichero elf64-littleaarch64
+
+
+Desensamblado de la sección .text:
+
+0000000000000000 <ExternalInterrupt-0xec>:
+	...
+  d8:	d530200c 	mrs	x12, s2_0_c2_c0_0
+  dc:	cb01018e 	sub	x14, x12, x1
+  e0:	b400006e 	cbz	x14, ec <ExternalInterrupt>
+  e4:	cb02018e 	sub	x14, x12, x2
+  e8:	b40000ae 	cbz	x14, fc <InvalidInstruction>
+
+00000000000000ec <ExternalInterrupt>:
+  ec:	f84003aa 	ldur	x10, [x29]
+  f0:	8b01014a 	add	x10, x10, x1
+  f4:	f80003aa 	stur	x10, [x29]
+  f8:	d69f03e0 	eret
+
+00000000000000fc <InvalidInstruction>:
+  fc:	f84003cb 	ldur	x11, [x30]
+ 100:	8b01016b 	add	x11, x11, x1
+ 104:	f80003cb 	stur	x11, [x30]
+ 108:	d530100d 	mrs	x13, mdrar_el1
+ 10c:	8b0401ad 	add	x13, x13, x4
+ 110:	d61f01a0 	br	x13
+
+Desensamblado de la sección .data:
+
+0000000000000114 <contador_interrupt_externa>:
+ 114:	00000000 	udf	#0
+
+0000000000000118 <contador_instruccion_invalida>:
+ 118:	00000000 	udf	#0
